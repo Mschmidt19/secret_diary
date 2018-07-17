@@ -3,21 +3,6 @@ class SecretDiary
     @locked = true
     @entries = []
   end
-  def locked?
-    if @locked == false
-      false
-    elsif @locked == true
-      true
-    end
-  end
-  def unlock
-    @locked = false
-    puts "Diary unlocked"
-  end
-  def lock
-    @locked = true
-    puts "Diary locked"
-  end
   def add_entry(string)
     fail "You must unlock the diary before entering" if locked?
     @entries.push(string)
@@ -28,5 +13,13 @@ class SecretDiary
       puts "#{index + 1}. #{entry}"
     end
   end
+  def locked?
+    if @locked == false
+      false
+    elsif @locked == true
+      true
+    end
+  end
+  attr_accessor :locked
   attr_reader :entries
 end
