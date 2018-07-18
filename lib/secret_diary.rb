@@ -1,25 +1,28 @@
+require_relative 'security'
+require 'date'
+require 'io/console'
 class SecretDiary
-  def initialize
-    @locked = true
+  def initialize(security_class = Security)
     @entries = []
+    @security = security_class.new
   end
   def add_entry(string)
     fail "You must unlock the diary before entering" if locked?
-    @entries.push(string)
+    @entries.push({:date => Time.now, :entry => string})
   end
   def get_entries
     fail "You must unlock the diary before getting entries" if locked?
     @entries.each_with_index do |entry, index|
-      puts "#{index + 1}. #{entry}"
+      puts "#{index + 1}. #{entry[:date]}: #{entry[:entry]}"
     end
+  end
+  def lock
+    @security.lock
+  end
+  def unlock
+    @security.unlock
   end
   def locked?
-    if @locked == false
-      false
-    elsif @locked == true
-      true
-    end
+    @security.locked?
   end
-  attr_accessor :locked
-  attr_reader :entries
 end
