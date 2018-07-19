@@ -6,6 +6,7 @@ class SecretDiary
     @entries = []
     @security = security_class.new
   end
+  attr_reader :security
   def add_entry(string)
     fail "You must unlock the diary before entering" if locked?
     @entries.push({:date => Time.now, :entry => string})
