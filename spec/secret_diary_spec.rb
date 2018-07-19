@@ -1,14 +1,13 @@
 require "secret_diary"
+require "stringio" # For stubbing gets.chomp
 
 describe SecretDiary do
-  before do
-    @diary = SecretDiary.new
-    @dl = DiaryLocker.new
-  end
+
+  let(:diary) { SecretDiary.new }
 
   describe "#initialize" do
-    it "initializes diaries in a locked state" do
-      expect(subject).to be_locked
+    it "initializes diaries in an unlocked state" do
+      expect(diary).not_to be_locked
     end
   end
 
@@ -16,7 +15,7 @@ describe SecretDiary do
     it { is_expected.to respond_to(:add_entry).with(1).argument }
     context "when locked" do
       it "raises an error if diary is locked" do
-        expect { @diary.add_entry("Hello") }.to raise_error("You must unlock the diary before entering")
+        expect { diary.add_entry("Hello") }.to raise_error("You must unlock the diary before entering")
       end
       it "raises an error if diary is locked after having been unlocked" do
         @dl.unlock(@diary)

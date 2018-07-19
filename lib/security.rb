@@ -3,6 +3,7 @@ class Security
     @locked = false
     @passphrase = nil
   end
+  attr_accessor :passphrase
   def unlock
     puts "Enter your passphrase"
     enteredphrase = STDIN.noecho(&:gets).chomp
