@@ -6,16 +6,10 @@ class Security
   def unlock
     puts "Enter your passphrase"
     enteredphrase = STDIN.noecho(&:gets).chomp
-    # puts "hello"
-    puts enteredphrase
-    puts @passphrase
-    # fail "Incorrect passphrase" unless enteredphrase == @passphrase
-    if enteredphrase == @passphrase
-      @locked = false
-      puts "Diary unlocked"
-    else
-      puts "Incorrect passphrase"
-    end
+    # puts @passphrase
+    # puts enteredphrase
+    fail "Incorrect passphrase" unless enteredphrase == @passphrase
+    puts "Diary unlocked"
   end
 
   def lock
