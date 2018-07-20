@@ -2,21 +2,31 @@ class Security
   def initialize
     @locked = false
   end
-  attr_accessor :passphrase
+
+  attr_reader :passphrase
+
   def unlock
+    if @locked == false
+      puts "Diary already unlocked"
+      return
+    end
     puts "Enter your passphrase"
     enteredphrase = STDIN.noecho(&:gets).chomp
-    # puts @passphrase
-    # puts enteredphrase
     fail "Incorrect passphrase" unless enteredphrase == @passphrase
+    @locked = false
     puts "Diary unlocked"
   end
 
   def lock
+    if @locked == true
+      puts "Diary already locked"
+      return
+    end
     secure! if @passphrase == nil
     @locked = true
     puts "Diary locked"
   end
+
   def locked?
     @locked
   end
